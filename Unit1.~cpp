@@ -21,8 +21,8 @@ void __fastcall TForm1::timerBallTimer(TObject *Sender)
         ball->Left+=x;
         ball->Top+=y;
         //reflection from walls
-        if(ball->Top-5 <= background->Top) y=-y;
-        if(ball->Top-5+ball->Height+5 >= background->Height) y=-y;
+        if(ball->Top-5 <= background->Top) y=-y; //
+        if(ball->Top+5 <= background->Top+background->Height) y=-y;
 }
 //---------------------------------------------------------------------------
 
