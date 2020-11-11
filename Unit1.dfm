@@ -26,7 +26,7 @@ object Form1: TForm1
     Brush.Color = clMoneyGreen
   end
   object ball: TImage
-    Left = 712
+    Left = 568
     Top = 168
     Width = 32
     Height = 32
@@ -132,6 +132,7 @@ object Form1: TForm1
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
       FFFF}
     Transparent = True
+    Visible = False
   end
   object paddleLeft: TImage
     Left = 16
@@ -542,6 +543,15 @@ object Form1: TForm1
       291E17291E17291E17291E17291E17291E17291E17291E17291E17291E17291E
       17291E17291E17291E17291E17291EFFFFFF}
     Transparent = True
+  end
+  object Button1: TButton
+    Left = 576
+    Top = 56
+    Width = 75
+    Height = 25
+    Caption = 'Start gry'
+    TabOrder = 0
+    OnClick = Button1Click
   end
   object timerBall: TTimer
     Interval = 20
