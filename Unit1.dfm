@@ -13,6 +13,8 @@ object Form1: TForm1
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  OnKeyDown = FormKeyDown
+  OnKeyUp = FormKeyUp
   PixelsPerInch = 96
   TextHeight = 13
   object background: TShape
@@ -348,8 +350,18 @@ object Form1: TForm1
     Left = 496
     Top = 8
   end
-  object timerPaddleLeft: TTimer
+  object timerPaddleLeftUp: TTimer
+    Enabled = False
+    Interval = 20
+    OnTimer = timerPaddleLeftUpTimer
     Left = 104
     Top = 32
+  end
+  object timerPaddleLeftDown: TTimer
+    Enabled = False
+    Interval = 20
+    OnTimer = timerPaddleLeftDownTimer
+    Left = 120
+    Top = 352
   end
 end
