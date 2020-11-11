@@ -544,6 +544,15 @@ object Form1: TForm1
       17291E17291E17291E17291E17291EFFFFFF}
     Transparent = True
   end
+  object Button1: TButton
+    Left = 576
+    Top = 56
+    Width = 75
+    Height = 25
+    Caption = 'Start gry'
+    TabOrder = 0
+    OnClick = Button1Click
+  end
   object timerBall: TTimer
     Interval = 20
     OnTimer = timerBallTimer

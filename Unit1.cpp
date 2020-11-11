@@ -46,8 +46,18 @@ void __fastcall TForm1::timerBallTimer(TObject *Sender)
                 x=-x;
                 }
 
-                if(ball->Left <= background->Left) Label1->Caption="Gracz z prawej strony wygrywa";
-                if(ball->Left >= background->Width) Label1->Caption="Gracz z lewej strony wygrywa";
+                if(ball->Left <= background->Left)
+                {
+                  Label1->Caption="Gracz z prawej strony wygrywa";
+                  beginStatus=false;
+                  Button1->Visible=true;
+                }
+                if(ball->Left >= background->Width)
+                {
+                 Label1->Caption="Gracz z lewej strony wygrywa";
+                 beginStatus=false;
+                 Button1->Visible=true;
+                }
         }  //end of if beginStatus
 }
 //---------------------------------------------------------------------------
@@ -103,6 +113,8 @@ void __fastcall TForm1::timerPaddleRightDownTimer(TObject *Sender)
 void __fastcall TForm1::Button1Click(TObject *Sender)
 {
         Button1->Visible=false;
+        paddleRight->Visible=true;
+        paddleLeft->Visible=true;
         beginStatus=true;
 }
 //---------------------------------------------------------------------------
