@@ -38,7 +38,7 @@ void __fastcall TForm1::timerBallTimer(TObject *Sender)
         //reflection from right paddle
         if(ball->Top >= paddleRight->Top &&
            ball->Top <= paddleRight->Top+paddleRight->Height &&
-           ball->Left+ball->Width >= paddleRight->Left)
+           ball->Left >= paddleRight->Left-paddleRight->Width )
            {
            x=-x;
            }
