@@ -24,8 +24,8 @@ object Form1: TForm1
     Brush.Color = clMoneyGreen
   end
   object ball: TImage
-    Left = 472
-    Top = 184
+    Left = 176
+    Top = 216
     Width = 32
     Height = 32
     AutoSize = True
@@ -133,7 +133,7 @@ object Form1: TForm1
   end
   object paddleLeft: TImage
     Left = 32
-    Top = 176
+    Top = 88
     Width = 20
     Height = 100
     AutoSize = True

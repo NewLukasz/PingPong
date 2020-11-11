@@ -24,8 +24,19 @@ void __fastcall TForm1::timerBallTimer(TObject *Sender)
         if(ball->Top-5 <= background->Top) y=-y;
         if(ball->Top-5+ball->Height+5 >= background->Height) y=-y;
 
-        if(ball->Left <= background->Left) Label1->Caption="Gracz z prawej strony wygrywa";
+        //reflection from left paddle
+        if(ball->Top <= paddleLeft->Top &&
+           ball->Top >= paddleLeft->Top+paddleLeft->Height &&
+           )
+           //ball->Left <= paddleLeft->Left+paddleLeft->Width
+           {
+            Label1->Caption="OdbicieXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx";
+           }
+
+        //if(ball->Left <= background->Left) Label1->Caption="Gracz z prawej strony wygrywa";
         if(ball->Left >= background->Width) Label1->Caption="Gracz z lewej strony wygrywa";
+
+
 
 }
 //---------------------------------------------------------------------------
