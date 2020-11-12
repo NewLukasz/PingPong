@@ -1,8 +1,8 @@
 object Form1: TForm1
-  Left = 328
-  Top = 180
-  Width = 1153
-  Height = 462
+  Left = 246
+  Top = 137
+  Width = 1167
+  Height = 540
   Caption = 'Form1'
   Color = clBtnFace
   UseDockManager = True
@@ -13,6 +13,7 @@ object Form1: TForm1
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  OnCanResize = FormCanResize
   OnKeyDown = FormKeyDown
   OnKeyUp = FormKeyUp
   PixelsPerInch = 96
@@ -20,13 +21,13 @@ object Form1: TForm1
   object background: TShape
     Left = 0
     Top = 0
-    Width = 1137
-    Height = 423
+    Width = 1151
+    Height = 501
     Align = alClient
     Brush.Color = clMoneyGreen
   end
   object ball: TImage
-    Left = 712
+    Left = 520
     Top = 168
     Width = 32
     Height = 32
@@ -132,9 +133,10 @@ object Form1: TForm1
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
       FFFF}
     Transparent = True
+    Visible = False
   end
   object paddleLeft: TImage
-    Left = 16
+    Left = 15
     Top = 88
     Width = 20
     Height = 100
@@ -330,19 +332,7 @@ object Form1: TForm1
       1E17291E17291E17291E17291E17291E17291E17291EFFFFFF17291E17291E17
       291E17291E17291E17291E17291E17291E17291E17291E17291E17291E17291E
       17291E17291E17291E17291E17291EFFFFFF}
-  end
-  object Label1: TLabel
-    Left = 392
-    Top = 112
-    Width = 90
-    Height = 36
-    Caption = 'Label1'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -31
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
-    ParentFont = False
+    Visible = False
   end
   object paddleRight: TImage
     Left = 1104
@@ -542,12 +532,37 @@ object Form1: TForm1
       291E17291E17291E17291E17291E17291E17291E17291E17291E17291E17291E
       17291E17291E17291E17291E17291EFFFFFF}
     Transparent = True
+    Visible = False
+  end
+  object score: TLabel
+    Left = 528
+    Top = 16
+    Width = 45
+    Height = 37
+    Caption = '0:0'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWhite
+    Font.Height = -32
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    Transparent = True
+  end
+  object Button1: TButton
+    Left = 424
+    Top = 96
+    Width = 217
+    Height = 33
+    Cursor = crHandPoint
+    Caption = 'Start game'
+    TabOrder = 0
+    OnClick = Button1Click
   end
   object timerBall: TTimer
     Interval = 20
     OnTimer = timerBallTimer
-    Left = 496
-    Top = 8
+    Left = 456
+    Top = 16
   end
   object timerPaddleLeftUp: TTimer
     Enabled = False

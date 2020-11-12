@@ -8,7 +8,58 @@
 #pragma package(smart_init)
 #pragma resource "*.dfm"
 TForm1 *Form1;
-int x=8, y=-8;
+int randomSignForBallMovement(int direction);
+int randomDirectionForBallMovement();
+
+int x=randomSignForBallMovement(randomDirectionForBallMovement())
+int y=randomSignForBallMovement(randomDirectionForBallMovement());
+bool beginStatus=false;
+int pointRightPlayer=0;
+int pointsLeftPlayer=0;
+AnsiString pointsRightPlayerString, pointsLeftPlayerString;
+
+int randomSignForBallMovement(int direction){
+        randomize();
+        int randomFactor=random(10);
+        if(randomFactor<5) return direction*(-1);
+        if(randomFactor>=5) return direction;
+}
+
+int randomDirectionForBallMovement(){
+        randomize();
+        return random(4)+5;
+}
+
+void winCheck(){
+        if (pointRightPlayer==5){
+                pointRightPlayer=0;
+                pointsLeftPlayer=0;
+                beginStatus=false;
+                Form1->score->Caption="Right player won!";
+        }
+        if(pointsLeftPlayer==5){
+                pointRightPlayer=0;
+                pointsLeftPlayer=0;
+                beginStatus=false;
+                Form1->score->Caption="Left player won!";
+        }
+}
+
+void setResultOnScore(){
+        pointsRightPlayerString=IntToStr(pointRightPlayer);
+        pointsLeftPlayerString=IntToStr(pointsLeftPlayer);
+
+        Form1->score->Caption=pointsLeftPlayerString+":"+pointsRightPlayerString;
+}
+
+void resetPositionOfBallAndRandomiseDirection(){
+        Form1->ball->Left=Form1->background->Width/2;
+        Form1->ball->Top=Form1->background->Height/2;
+        randomize();
+        x=randomSignForBallMovement(randomDirectionForBallMovement());
+        y=randomSignForBallMovement(randomDirectionForBallMovement());
+}
+
 //---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner)
         : TForm(Owner)
@@ -18,38 +69,55 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 
 void __fastcall TForm1::timerBallTimer(TObject *Sender)
 {
-        ball->Left+=x;
-        ball->Top+=y;
-        //reflection from walls
-        if(ball->Top-5 <= background->Top) y=-y;
-        if(ball->Top-5+ball->Height+5 >= background->Height) y=-y;
-        //reflection from right wall - only for tests
-        if(ball->Left >=background->Width) x=-x;
+        if(beginStatus==true)
+        {
+                ball->Visible=true;
+                ball->Left+=x;
+                ball->Top+=y;
+                //reflection from walls
+                if(ball->Top-5 <= background->Top) y=-y;
+                if(ball->Top-5+ball->Height+5 >= background->Height) y=-y;
+                if(ball->Left >=background->Width) x=-x;
 
-        //reflection from left paddle
-        if(ball->Top >= paddleLeft->Top &&
-           ball->Top <= paddleLeft->Top+paddleLeft->Height &&
-           ball->Left <= paddleLeft->Left+paddleLeft->Width &&
-           ball->Left >= paddleLeft->Left)
-           {
-           x=-x;
-           }
+                //reflection from left paddle
+                if(ball->Top >= paddleLeft->Top &&
+                ball->Top <= paddleLeft->Top+paddleLeft->Height &&
+                ball->Left <= paddleLeft->Left+paddleLeft->Width )
+                 {
+                  x=-x;
+                  if(timerBall->Interval>5) timerBall->Interval-=2;
+                 }
 
-        //reflection from right paddle
-        if(ball->Top >= paddleRight->Top &&
-           ball->Top <= paddleRight->Top+paddleRight->Height &&
-           ball->Left+ball->Width >= paddleRight->Left)
-           {
-           x=-x;
-           }
+                 //reflection from right paddle
+                 if(ball->Top >= paddleRight->Top &&
+                 ball->Top <= paddleRight->Top+paddleRight->Height &&
+                 ball->Left+ball->Width >= paddleRight->Left)
+                {
+                 x=-x;
+                 if(timerBall->Interval>5) timerBall->Interval-=2;
+                }
 
+                if(ball->Left <= background->Left)
+                {
+                  beginStatus=false;
+                  Button1->Visible=true;
+                  pointRightPlayer++;
+                  resetPositionOfBallAndRandomiseDirection();
+                  setResultOnScore();
+                  winCheck();
+                }
+                if(ball->Left >= background->Width)
+                {
+                 beginStatus=false;
+                 Button1->Visible=true;
+                 pointsLeftPlayer++;
+                 resetPositionOfBallAndRandomiseDirection();
+                 setResultOnScore();
+                 winCheck();
+                 timerBall->Interval=23;
 
-
-        if(ball->Left <= background->Left) Label1->Caption="Gracz z prawej strony wygrywa";
-        if(ball->Left >= background->Width) Label1->Caption="Gracz z lewej strony wygrywa";
-
-
-
+                }
+        }  //end of if beginStatus
 }
 //---------------------------------------------------------------------------
 
@@ -70,10 +138,10 @@ void __fastcall TForm1::timerPaddleLeftDownTimer(TObject *Sender)
 void __fastcall TForm1::FormKeyDown(TObject *Sender, WORD &Key,
       TShiftState Shift)
 {
-        if(Key==0x41) timerPaddleLeftUp->Enabled=true;
-        if(Key==0x5A) timerPaddleLeftDown->Enabled=true;
-        if(Key==VK_UP) timerPaddleRightUp->Enabled=true;
-        if(Key==VK_DOWN) timerPaddleRightDown->Enabled=true;
+        if(Key==0x41 && beginStatus==true) timerPaddleLeftUp->Enabled=true;
+        if(Key==0x5A && beginStatus==true) timerPaddleLeftDown->Enabled=true;
+        if(Key==VK_UP && beginStatus==true) timerPaddleRightUp->Enabled=true;
+        if(Key==VK_DOWN && beginStatus==true) timerPaddleRightDown->Enabled=true;
 }
 //---------------------------------------------------------------------------
 
@@ -90,13 +158,34 @@ void __fastcall TForm1::FormKeyUp(TObject *Sender, WORD &Key,
 
 void __fastcall TForm1::timerPaddleRightUpTimer(TObject *Sender)
 {
-        if(paddleRight->Top>15) paddleRight->Top -=10;
+        if(paddleRight->Top>15 ) paddleRight->Top -=10;
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::timerPaddleRightDownTimer(TObject *Sender)
 {
         if(paddleRight->Top+paddleRight->Height<background->Height-10) paddleRight->Top+=10;
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::Button1Click(TObject *Sender)
+{
+        Button1->Visible=false;
+        paddleRight->Visible=true;
+        paddleLeft->Visible=true;
+        beginStatus=true;
+        setResultOnScore();
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::FormCanResize(TObject *Sender, int &NewWidth,
+      int &NewHeight, bool &Resize)
+{
+        paddleRight->Left=background->Width-paddleRight->Width-15;
+        Button1->Left=background->Width/2-Button1->Width/2;
+        score->Left=background->Width/2-score->Width/2;
 }
 //---------------------------------------------------------------------------
 
