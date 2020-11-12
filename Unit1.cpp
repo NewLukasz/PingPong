@@ -10,6 +10,15 @@
 TForm1 *Form1;
 int randomSignForBallMovement(int direction);
 int randomDirectionForBallMovement();
+void winCheck();
+void setResultOnScore();
+void resetPositionOfBallAndRandomiseDirection();
+void pointForLeftPlayerProcedure();
+void pointForRightPlayerProcedure();
+void reflectionFromWallsProcedure();
+void reflectionFromLeftPaddleProcedure();
+void pointForRightPlayerProcedure();
+
 
 int x=randomSignForBallMovement(randomDirectionForBallMovement());
 int y=randomSignForBallMovement(randomDirectionForBallMovement());
@@ -62,7 +71,7 @@ void resetPositionOfBallAndRandomiseDirection(){
 
 void pointForLeftPlayerProcedure(){
                 beginStatus=false;
-                Form1->Button1->Visible=true;
+                Form1->startGameButton->Visible=true;
                 pointsLeftPlayer++;
                 resetPositionOfBallAndRandomiseDirection();
                 setResultOnScore();
@@ -72,7 +81,7 @@ void pointForLeftPlayerProcedure(){
 
 void pointForRightPlayerProcedure(){
                 beginStatus=false;
-                Form1->Button1->Visible=true;
+                Form1->startGameButton->Visible=true;
                 pointRightPlayer++;
                 resetPositionOfBallAndRandomiseDirection();
                 setResultOnScore();
@@ -123,12 +132,11 @@ void __fastcall TForm1::timerBallTimer(TObject *Sender)
 
                 reflectionFromWallsProcedure();
                 reflectionFromRightPaddleProcedure();
-
                 reflectionFromLeftPaddleProcedure();
 
-                if(ball->Left >= paddleRight->Left) pointForRightPlayerProcedure();
-                if(ball->Left < paddleLeft->Left) pointForLeftPlayerProcedure();
-        }  //end of if beginStatus
+                if(ball->Left >= paddleRight->Left) pointForLeftPlayerProcedure();
+                if(ball->Left < paddleLeft->Left) pointForRightPlayerProcedure();
+        }
 }
 //---------------------------------------------------------------------------
 
@@ -180,9 +188,9 @@ void __fastcall TForm1::timerPaddleRightDownTimer(TObject *Sender)
 //---------------------------------------------------------------------------
 
 
-void __fastcall TForm1::Button1Click(TObject *Sender)
+void __fastcall TForm1::startGameButtonClick(TObject *Sender)
 {
-        Button1->Visible=false;
+        startGameButton->Visible=false;
         paddleRight->Visible=true;
         paddleLeft->Visible=true;
         beginStatus=true;
@@ -195,7 +203,7 @@ void __fastcall TForm1::FormCanResize(TObject *Sender, int &NewWidth,
       int &NewHeight, bool &Resize)
 {
         paddleRight->Left=background->Width-paddleRight->Width-15;
-        Button1->Left=background->Width/2-Button1->Width/2;
+        startGameButton->Left=background->Width/2-startGameButton->Width/2;
         score->Left=background->Width/2-score->Width/2;
 }
 //---------------------------------------------------------------------------

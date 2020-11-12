@@ -549,7 +549,7 @@ object Form1: TForm1
     ParentFont = False
     Transparent = True
   end
-  object Button1: TButton
+  object startGameButton: TButton
     Left = 424
     Top = 96
     Width = 217
@@ -557,7 +557,7 @@ object Form1: TForm1
     Cursor = crHandPoint
     Caption = 'Start game'
     TabOrder = 0
-    OnClick = Button1Click
+    OnClick = startGameButtonClick
   end
   object timerBall: TTimer
     Interval = 20
