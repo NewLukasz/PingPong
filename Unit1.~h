@@ -36,6 +36,7 @@ __published:	// IDE-managed Components
         void __fastcall Button1Click(TObject *Sender);
         void __fastcall FormCanResize(TObject *Sender, int &NewWidth,
           int &NewHeight, bool &Resize);
+        void __fastcall FormCreate(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
         __fastcall TForm1(TComponent* Owner);
