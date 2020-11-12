@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 188
-  Top = 124
+  Left = 246
+  Top = 137
   Width = 1167
   Height = 540
   Caption = 'Form1'
@@ -335,10 +335,11 @@ object Form1: TForm1
     Visible = False
   end
   object Label1: TLabel
-    Left = 496
+    Left = 512
     Top = 48
-    Width = 8
+    Width = 42
     Height = 36
+    Caption = '0:0'
     FocusControl = Button1
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -549,7 +550,7 @@ object Form1: TForm1
     Visible = False
   end
   object Button1: TButton
-    Left = 440
+    Left = 424
     Top = 96
     Width = 217
     Height = 33

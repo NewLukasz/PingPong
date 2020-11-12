@@ -10,6 +10,8 @@
 TForm1 *Form1;
 int x=8, y=-8;
 bool beginStatus=false;
+int pointRightPlayer=0;
+int pointsLeftPlayer=0;
 //---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner)
         : TForm(Owner)
@@ -32,18 +34,18 @@ void __fastcall TForm1::timerBallTimer(TObject *Sender)
                 //reflection from left paddle
                 if(ball->Top >= paddleLeft->Top &&
                 ball->Top <= paddleLeft->Top+paddleLeft->Height &&
-                 ball->Left <= paddleLeft->Left+paddleLeft->Width &&
+                ball->Left <= paddleLeft->Left+paddleLeft->Width &&
                 ball->Left >= paddleLeft->Left)
                  {
-                 x=-x;
-                  }
+                  x=-x;
+                 }
 
                  //reflection from right paddle
                  if(ball->Top >= paddleRight->Top &&
-                ball->Top <= paddleRight->Top+paddleRight->Height &&
+                 ball->Top <= paddleRight->Top+paddleRight->Height &&
                  ball->Left+ball->Width >= paddleRight->Left)
                 {
-                x=-x;
+                 x=-x;
                 }
 
                 if(ball->Left <= background->Left)
@@ -51,12 +53,14 @@ void __fastcall TForm1::timerBallTimer(TObject *Sender)
                   Label1->Caption="Gracz z prawej strony wygrywa";
                   beginStatus=false;
                   Button1->Visible=true;
+                  pointRightPlayer++;
                 }
                 if(ball->Left >= background->Width)
                 {
-                 Label1->Caption="Gracz z lewej strony wygrywa";
                  beginStatus=false;
                  Button1->Visible=true;
+                 pointsLeftPlayer++;
+                 Label1->Caption=IntToStr(pointsLeftPlayer)+":"IntToStr(pointRightPlayer);
                 }
         }  //end of if beginStatus
 }
@@ -116,6 +120,14 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
         paddleRight->Visible=true;
         paddleLeft->Visible=true;
         beginStatus=true;
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::FormCanResize(TObject *Sender, int &NewWidth,
+      int &NewHeight, bool &Resize)
+{
+        paddleRight->Left=background->Width-paddleRight->Width-15;        
 }
 //---------------------------------------------------------------------------
 

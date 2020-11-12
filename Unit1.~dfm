@@ -1,8 +1,8 @@
 object Form1: TForm1
-  Left = 328
-  Top = 180
-  Width = 1153
-  Height = 462
+  Left = 188
+  Top = 124
+  Width = 1167
+  Height = 540
   Caption = 'Form1'
   Color = clBtnFace
   UseDockManager = True
@@ -13,6 +13,7 @@ object Form1: TForm1
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  OnCanResize = FormCanResize
   OnKeyDown = FormKeyDown
   OnKeyUp = FormKeyUp
   PixelsPerInch = 96
@@ -20,13 +21,13 @@ object Form1: TForm1
   object background: TShape
     Left = 0
     Top = 0
-    Width = 1137
-    Height = 423
+    Width = 1151
+    Height = 501
     Align = alClient
     Brush.Color = clMoneyGreen
   end
   object ball: TImage
-    Left = 568
+    Left = 520
     Top = 168
     Width = 32
     Height = 32
@@ -135,7 +136,7 @@ object Form1: TForm1
     Visible = False
   end
   object paddleLeft: TImage
-    Left = 16
+    Left = 15
     Top = 88
     Width = 20
     Height = 100
@@ -334,17 +335,18 @@ object Form1: TForm1
     Visible = False
   end
   object Label1: TLabel
-    Left = 264
-    Top = 320
-    Width = 90
+    Left = 496
+    Top = 48
+    Width = 8
     Height = 36
-    Caption = 'Label1'
+    FocusControl = Button1
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -31
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
+    Transparent = True
   end
   object paddleRight: TImage
     Left = 1104

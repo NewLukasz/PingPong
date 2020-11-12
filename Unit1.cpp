@@ -12,6 +12,8 @@ int x=8, y=-8;
 bool beginStatus=false;
 int pointRightPlayer=0;
 int pointsLeftPlayer=0;
+AnsiString pointsRightPlayerString, pointsLeftPlayerString;
+
 //---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner)
         : TForm(Owner)
@@ -23,6 +25,7 @@ void __fastcall TForm1::timerBallTimer(TObject *Sender)
 {
         if(beginStatus==true)
         {
+                else{
                 ball->Visible=true;
                 ball->Left+=x;
                 ball->Top+=y;
@@ -50,17 +53,25 @@ void __fastcall TForm1::timerBallTimer(TObject *Sender)
 
                 if(ball->Left <= background->Left)
                 {
-                  Label1->Caption="Gracz z prawej strony wygrywa";
                   beginStatus=false;
                   Button1->Visible=true;
                   pointRightPlayer++;
+                  pointsRightPlayerString=IntToStr(pointRightPlayer);
+                  pointsLeftPlayerString=IntToStr(pointsLeftPlayer);
+                  Label1->Caption=pointsLeftPlayerString+":"+pointsRightPlayerString;
+                  ball->Left=background->Width/2;
+                  ball->Top=background->Height/2;
                 }
                 if(ball->Left >= background->Width)
                 {
-                 Label1->Caption="Gracz z lewej strony wygrywa";
                  beginStatus=false;
                  Button1->Visible=true;
                  pointsLeftPlayer++;
+                 pointsRightPlayerString=IntToStr(pointRightPlayer);
+                 pointsLeftPlayerString=IntToStr(pointsLeftPlayer);
+                 Label1->Caption=pointsLeftPlayerString+":"+pointsRightPlayerString;
+                 ball->Left=background->Width/2;
+                 ball->Top=background->Height/2;
                 }
         }  //end of if beginStatus
 }
@@ -127,7 +138,9 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
 void __fastcall TForm1::FormCanResize(TObject *Sender, int &NewWidth,
       int &NewHeight, bool &Resize)
 {
-        paddleRight->Left=background->Width-paddleRight->Width-15;        
+        paddleRight->Left=background->Width-paddleRight->Width-15;
+        Label1->Left=background->Width/2-Label1->Width/2;
+        Button1->Left=background->Width/2-Button1->Width/2;
 }
 //---------------------------------------------------------------------------
 
