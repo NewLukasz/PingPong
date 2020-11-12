@@ -331,10 +331,11 @@ object Form1: TForm1
       1E17291E17291E17291E17291E17291E17291E17291EFFFFFF17291E17291E17
       291E17291E17291E17291E17291E17291E17291E17291E17291E17291E17291E
       17291E17291E17291E17291E17291EFFFFFF}
+    Visible = False
   end
   object Label1: TLabel
-    Left = 392
-    Top = 112
+    Left = 264
+    Top = 320
     Width = 90
     Height = 36
     Caption = 'Label1'
@@ -543,13 +544,15 @@ object Form1: TForm1
       291E17291E17291E17291E17291E17291E17291E17291E17291E17291E17291E
       17291E17291E17291E17291E17291EFFFFFF}
     Transparent = True
+    Visible = False
   end
   object Button1: TButton
-    Left = 576
-    Top = 56
-    Width = 75
-    Height = 25
-    Caption = 'Start gry'
+    Left = 440
+    Top = 96
+    Width = 217
+    Height = 33
+    Cursor = crHandPoint
+    Caption = 'Start game'
     TabOrder = 0
     OnClick = Button1Click
   end

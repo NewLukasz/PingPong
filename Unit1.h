@@ -34,6 +34,8 @@ __published:	// IDE-managed Components
         void __fastcall timerPaddleRightUpTimer(TObject *Sender);
         void __fastcall timerPaddleRightDownTimer(TObject *Sender);
         void __fastcall Button1Click(TObject *Sender);
+        void __fastcall FormCanResize(TObject *Sender, int &NewWidth,
+          int &NewHeight, bool &Resize);
 private:	// User declarations
 public:		// User declarations
         __fastcall TForm1(TComponent* Owner);
