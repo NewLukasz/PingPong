@@ -80,6 +80,12 @@ void pointForRightPlayerProcedure(){
                 Form1->timerBall->Interval=23;
 }
 
+void reflectionFromWallsProcedure(){
+                if(Form1->ball->Top-5 <= Form1->background->Top) y=-y;
+                if(Form1->ball->Top-5+Form1->ball->Height+5 >= Form1->background->Height) y=-y;
+                if(Form1->ball->Left >=Form1->background->Width) x=-x;
+}
+
 //---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner)
         : TForm(Owner)
@@ -95,9 +101,7 @@ void __fastcall TForm1::timerBallTimer(TObject *Sender)
                 ball->Left+=x;
                 ball->Top+=y;
                 //reflection from walls
-                if(ball->Top-5 <= background->Top) y=-y;
-                if(ball->Top-5+ball->Height+5 >= background->Height) y=-y;
-                if(ball->Left >=background->Width) x=-x;
+                reflectionFromWallsProcedure();
 
                 //reflection from left paddle
                 if(ball->Top >= paddleLeft->Top &&
@@ -117,10 +121,7 @@ void __fastcall TForm1::timerBallTimer(TObject *Sender)
                  if(timerBall->Interval>5) timerBall->Interval-=2;
                 }
                 //point for right player
-                if(ball->Left >= paddleRight->Left)
-                {
-
-                }
+                if(ball->Left >= paddleRight->Left) pointForRightPlayerProcedure();
                 //point for left player
                 if(ball->Left < paddleLeft->Left) pointForLeftPlayerProcedure();
         }  //end of if beginStatus

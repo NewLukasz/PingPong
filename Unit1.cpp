@@ -86,6 +86,26 @@ void reflectionFromWallsProcedure(){
                 if(Form1->ball->Left >=Form1->background->Width) x=-x;
 }
 
+void reflectionFromLeftPaddleProcedure(){
+        if(Form1->ball->Top >= Form1->paddleLeft->Top &&
+        Form1->ball->Top <= Form1->paddleLeft->Top+Form1->paddleLeft->Height &&
+        Form1->ball->Left <= Form1->paddleLeft->Left+Form1->paddleLeft->Width)
+                {
+                  x=-x;
+                  if(Form1->timerBall->Interval>5) Form1->timerBall->Interval-=2;
+                 }
+}
+
+void reflectionFromRightPaddleProcedure(){
+        if(Form1->ball->Top >= Form1->paddleRight->Top &&
+        Form1->ball->Top <= Form1->paddleRight->Top+Form1->paddleRight->Height &&
+        Form1->ball->Left+Form1->ball->Width >= Form1->paddleRight->Left)
+        {
+               x=-x;
+               if(Form1->timerBall->Interval>5) Form1->timerBall->Interval-=2;
+        }
+}
+
 //---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner)
         : TForm(Owner)
@@ -100,29 +120,13 @@ void __fastcall TForm1::timerBallTimer(TObject *Sender)
                 ball->Visible=true;
                 ball->Left+=x;
                 ball->Top+=y;
-                //reflection from walls
+
                 reflectionFromWallsProcedure();
+                reflectionFromRightPaddleProcedure();
 
-                //reflection from left paddle
-                if(ball->Top >= paddleLeft->Top &&
-                ball->Top <= paddleLeft->Top+paddleLeft->Height &&
-                ball->Left <= paddleLeft->Left+paddleLeft->Width)
-                 {
-                  x=-x;
-                  if(timerBall->Interval>5) timerBall->Interval-=2;
-                 }
+                reflectionFromLeftPaddleProcedure();
 
-                 //reflection from right paddle
-                 if(ball->Top >= paddleRight->Top &&
-                 ball->Top <= paddleRight->Top+paddleRight->Height &&
-                 ball->Left+ball->Width >= paddleRight->Left)
-                {
-                 x=-x;
-                 if(timerBall->Interval>5) timerBall->Interval-=2;
-                }
-                //point for right player
                 if(ball->Left >= paddleRight->Left) pointForRightPlayerProcedure();
-                //point for left player
                 if(ball->Left < paddleLeft->Left) pointForLeftPlayerProcedure();
         }  //end of if beginStatus
 }
