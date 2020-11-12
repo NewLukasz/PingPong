@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 246
   Top = 137
   Width = 1167
-  Height = 540
-  Caption = 'Form1'
+  Height = 539
+  Caption = 'PingPong by Lukasz'
   Color = clBtnFace
   UseDockManager = True
   DockSite = True
@@ -14,6 +14,7 @@ object Form1: TForm1
   Font.Style = []
   OldCreateOrder = False
   OnCanResize = FormCanResize
+  OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   OnKeyUp = FormKeyUp
   PixelsPerInch = 96
@@ -22,7 +23,7 @@ object Form1: TForm1
     Left = 0
     Top = 0
     Width = 1151
-    Height = 501
+    Height = 500
     Align = alClient
     Brush.Color = clMoneyGreen
   end
@@ -548,7 +549,7 @@ object Form1: TForm1
     ParentFont = False
     Transparent = True
   end
-  object Button1: TButton
+  object startGameButton: TButton
     Left = 424
     Top = 96
     Width = 217
@@ -556,7 +557,7 @@ object Form1: TForm1
     Cursor = crHandPoint
     Caption = 'Start game'
     TabOrder = 0
-    OnClick = Button1Click
+    OnClick = startGameButtonClick
   end
   object timerBall: TTimer
     Interval = 20

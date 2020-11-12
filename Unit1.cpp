@@ -10,6 +10,15 @@
 TForm1 *Form1;
 int randomSignForBallMovement(int direction);
 int randomDirectionForBallMovement();
+void winCheck();
+void setResultOnScore();
+void resetPositionOfBallAndRandomiseDirection();
+void pointForLeftPlayerProcedure();
+void pointForRightPlayerProcedure();
+void reflectionFromWallsProcedure();
+void reflectionFromLeftPaddleProcedure();
+void pointForRightPlayerProcedure();
+
 
 int x=randomSignForBallMovement(randomDirectionForBallMovement());
 int y=randomSignForBallMovement(randomDirectionForBallMovement());
@@ -60,6 +69,52 @@ void resetPositionOfBallAndRandomiseDirection(){
         y=randomSignForBallMovement(randomDirectionForBallMovement());
 }
 
+void pointForLeftPlayerProcedure(){
+                beginStatus=false;
+                Form1->startGameButton->Visible=true;
+                pointsLeftPlayer++;
+                resetPositionOfBallAndRandomiseDirection();
+                setResultOnScore();
+                winCheck();
+                Form1->timerBall->Interval=23;
+}
+
+void pointForRightPlayerProcedure(){
+                beginStatus=false;
+                Form1->startGameButton->Visible=true;
+                pointRightPlayer++;
+                resetPositionOfBallAndRandomiseDirection();
+                setResultOnScore();
+                winCheck();
+                Form1->timerBall->Interval=23;
+}
+
+void reflectionFromWallsProcedure(){
+                if(Form1->ball->Top-5 <= Form1->background->Top) y=-y;
+                if(Form1->ball->Top-5+Form1->ball->Height+5 >= Form1->background->Height) y=-y;
+                if(Form1->ball->Left >=Form1->background->Width) x=-x;
+}
+
+void reflectionFromLeftPaddleProcedure(){
+        if(Form1->ball->Top >= Form1->paddleLeft->Top &&
+        Form1->ball->Top <= Form1->paddleLeft->Top+Form1->paddleLeft->Height &&
+        Form1->ball->Left <= Form1->paddleLeft->Left+Form1->paddleLeft->Width)
+                {
+                  x=-x;
+                  if(Form1->timerBall->Interval>5) Form1->timerBall->Interval-=2;
+                 }
+}
+
+void reflectionFromRightPaddleProcedure(){
+        if(Form1->ball->Top >= Form1->paddleRight->Top &&
+        Form1->ball->Top <= Form1->paddleRight->Top+Form1->paddleRight->Height &&
+        Form1->ball->Left+Form1->ball->Width >= Form1->paddleRight->Left)
+        {
+               x=-x;
+               if(Form1->timerBall->Interval>5) Form1->timerBall->Interval-=2;
+        }
+}
+
 //---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner)
         : TForm(Owner)
@@ -71,54 +126,17 @@ void __fastcall TForm1::timerBallTimer(TObject *Sender)
 {
         if(beginStatus==true)
         {
-                
                 ball->Visible=true;
                 ball->Left+=x;
                 ball->Top+=y;
-                //reflection from walls
-                if(ball->Top-5 <= background->Top) y=-y;
-                if(ball->Top-5+ball->Height+5 >= background->Height) y=-y;
-                if(ball->Left >=background->Width) x=-x;
 
-                //reflection from left paddle
-                if(ball->Top >= paddleLeft->Top &&
-                ball->Top <= paddleLeft->Top+paddleLeft->Height &&
-                ball->Left <= paddleLeft->Left+paddleLeft->Width )
-                 {
-                  x=-x;
-                  if(timerBall->Interval>5) timerBall->Interval-=2;
-                 }
+                reflectionFromWallsProcedure();
+                reflectionFromRightPaddleProcedure();
+                reflectionFromLeftPaddleProcedure();
 
-                 //reflection from right paddle
-                 if(ball->Top >= paddleRight->Top &&
-                 ball->Top <= paddleRight->Top+paddleRight->Height &&
-                 ball->Left+ball->Width >= paddleRight->Left)
-                {
-                 x=-x;
-                 if(timerBall->Interval>5) timerBall->Interval-=2;
-                }
-
-                if(ball->Left <= background->Left)
-                {
-                  beginStatus=false;
-                  Button1->Visible=true;
-                  pointRightPlayer++;
-                  resetPositionOfBallAndRandomiseDirection();
-                  setResultOnScore();
-                  winCheck();
-                }
-                if(ball->Left >= background->Width)
-                {
-                 beginStatus=false;
-                 Button1->Visible=true;
-                 pointsLeftPlayer++;
-                 resetPositionOfBallAndRandomiseDirection();
-                 setResultOnScore();
-                 winCheck();
-                 timerBall->Interval=23;
-
-                }
-        }  //end of if beginStatus
+                if(ball->Left >= paddleRight->Left) pointForLeftPlayerProcedure();
+                if(ball->Left < paddleLeft->Left) pointForRightPlayerProcedure();
+        }
 }
 //---------------------------------------------------------------------------
 
@@ -170,9 +188,9 @@ void __fastcall TForm1::timerPaddleRightDownTimer(TObject *Sender)
 //---------------------------------------------------------------------------
 
 
-void __fastcall TForm1::Button1Click(TObject *Sender)
+void __fastcall TForm1::startGameButtonClick(TObject *Sender)
 {
-        Button1->Visible=false;
+        startGameButton->Visible=false;
         paddleRight->Visible=true;
         paddleLeft->Visible=true;
         beginStatus=true;
@@ -185,8 +203,14 @@ void __fastcall TForm1::FormCanResize(TObject *Sender, int &NewWidth,
       int &NewHeight, bool &Resize)
 {
         paddleRight->Left=background->Width-paddleRight->Width-15;
-        Button1->Left=background->Width/2-Button1->Width/2;
+        startGameButton->Left=background->Width/2-startGameButton->Width/2;
         score->Left=background->Width/2-score->Width/2;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::FormCreate(TObject *Sender)
+{
+ ShowMessage("Welcome to PingPong game.\n\nSetting for left player: A - up, Z - down. \nSetting for right player: ArrowUp - up, ArrowDown - down.\n\n Rules:\n 1. The game continues untill one of player get 5 points.\n 2. After every reflection from paddle ball speed up to maximum speed.\n 3. Window is resizable so you can adjust size to diversify game.");   
 }
 //---------------------------------------------------------------------------
 
