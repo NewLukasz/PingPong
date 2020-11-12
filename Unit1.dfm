@@ -334,21 +334,6 @@ object Form1: TForm1
       17291E17291E17291E17291E17291EFFFFFF}
     Visible = False
   end
-  object Label1: TLabel
-    Left = 512
-    Top = 48
-    Width = 42
-    Height = 36
-    Caption = '0:0'
-    FocusControl = Button1
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -31
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
-    ParentFont = False
-    Transparent = True
-  end
   object paddleRight: TImage
     Left = 1104
     Top = 104
@@ -549,6 +534,20 @@ object Form1: TForm1
     Transparent = True
     Visible = False
   end
+  object score: TLabel
+    Left = 528
+    Top = 16
+    Width = 45
+    Height = 37
+    Caption = '0:0'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWhite
+    Font.Height = -32
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    Transparent = True
+  end
   object Button1: TButton
     Left = 424
     Top = 96
@@ -562,8 +561,8 @@ object Form1: TForm1
   object timerBall: TTimer
     Interval = 20
     OnTimer = timerBallTimer
-    Left = 496
-    Top = 8
+    Left = 456
+    Top = 16
   end
   object timerPaddleLeftUp: TTimer
     Enabled = False

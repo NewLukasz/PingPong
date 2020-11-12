@@ -12,6 +12,23 @@ int x=8, y=-8;
 bool beginStatus=false;
 int pointRightPlayer=0;
 int pointsLeftPlayer=0;
+AnsiString pointsRightPlayerString, pointsLeftPlayerString;
+
+void winCheck(){
+        if (pointRightPlayer==5){
+                Form1->Label1->Caption="Right player won!";
+                pointRightPlayer=0;
+                pointsLeftPlayer=0;
+                beginStatus=false;
+        }
+        if(pointsLeftPlayer==5){
+                Form1->Label1->Caption="Left player won!";
+                pointRightPlayer=0;
+                pointsLeftPlayer=0;
+                beginStatus=false;
+        }
+}
+
 //---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner)
         : TForm(Owner)
@@ -34,8 +51,7 @@ void __fastcall TForm1::timerBallTimer(TObject *Sender)
                 //reflection from left paddle
                 if(ball->Top >= paddleLeft->Top &&
                 ball->Top <= paddleLeft->Top+paddleLeft->Height &&
-                ball->Left <= paddleLeft->Left+paddleLeft->Width &&
-                ball->Left >= paddleLeft->Left)
+                ball->Left <= paddleLeft->Left+paddleLeft->Width )
                  {
                   x=-x;
                  }
@@ -50,17 +66,26 @@ void __fastcall TForm1::timerBallTimer(TObject *Sender)
 
                 if(ball->Left <= background->Left)
                 {
-                  Label1->Caption="Gracz z prawej strony wygrywa";
                   beginStatus=false;
                   Button1->Visible=true;
                   pointRightPlayer++;
+                  pointsRightPlayerString=IntToStr(pointRightPlayer);
+                  pointsLeftPlayerString=IntToStr(pointsLeftPlayer);
+                  ball->Left=background->Width/2;
+                  ball->Top=background->Height/2;
+                  winCheck();
                 }
                 if(ball->Left >= background->Width)
                 {
                  beginStatus=false;
                  Button1->Visible=true;
                  pointsLeftPlayer++;
-                 Label1->Caption=IntToStr(pointsLeftPlayer)+":"IntToStr(pointRightPlayer);
+                 pointsRightPlayerString=IntToStr(pointRightPlayer);
+                 pointsLeftPlayerString=IntToStr(pointsLeftPlayer);
+                 ball->Left=background->Width/2;
+                 ball->Top=background->Height/2;
+                 winCheck();
+
                 }
         }  //end of if beginStatus
 }
@@ -127,7 +152,9 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
 void __fastcall TForm1::FormCanResize(TObject *Sender, int &NewWidth,
       int &NewHeight, bool &Resize)
 {
-        paddleRight->Left=background->Width-paddleRight->Width-15;        
+        paddleRight->Left=background->Width-paddleRight->Width-15;
+        Button1->Left=background->Width/2-Button1->Width/2;
+        score->Left=background->Width/2-score->Width/2;
 }
 //---------------------------------------------------------------------------
 

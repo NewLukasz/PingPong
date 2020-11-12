@@ -18,12 +18,12 @@ __published:	// IDE-managed Components
         TTimer *timerBall;
         TImage *paddleLeft;
         TTimer *timerPaddleLeftUp;
-        TLabel *Label1;
         TTimer *timerPaddleLeftDown;
         TImage *paddleRight;
         TTimer *timerPaddleRightUp;
         TTimer *timerPaddleRightDown;
         TButton *Button1;
+        TLabel *score;
         void __fastcall timerBallTimer(TObject *Sender);
         void __fastcall timerPaddleLeftUpTimer(TObject *Sender);
         void __fastcall timerPaddleLeftDownTimer(TObject *Sender);
