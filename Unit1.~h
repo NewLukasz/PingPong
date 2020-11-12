@@ -18,7 +18,6 @@ __published:	// IDE-managed Components
         TTimer *timerBall;
         TImage *paddleLeft;
         TTimer *timerPaddleLeftUp;
-        TLabel *Label1;
         TTimer *timerPaddleLeftDown;
         TImage *paddleRight;
         TTimer *timerPaddleRightUp;

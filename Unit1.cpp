@@ -2,7 +2,7 @@
 
 #include <vcl.h>
 #pragma hdrstop
-
+#include "mmsystem.h"
 #include "Unit1.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -11,7 +11,7 @@ TForm1 *Form1;
 int randomSignForBallMovement(int direction);
 int randomDirectionForBallMovement();
 
-int x=randomSignForBallMovement(randomDirectionForBallMovement())
+int x=randomSignForBallMovement(randomDirectionForBallMovement());
 int y=randomSignForBallMovement(randomDirectionForBallMovement());
 bool beginStatus=false;
 int pointRightPlayer=0;
@@ -71,6 +71,7 @@ void __fastcall TForm1::timerBallTimer(TObject *Sender)
 {
         if(beginStatus==true)
         {
+                
                 ball->Visible=true;
                 ball->Left+=x;
                 ball->Top+=y;
