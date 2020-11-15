@@ -134,7 +134,7 @@ void __fastcall TForm1::timerBallTimer(TObject *Sender)
                 reflectionFromRightPaddleProcedure();
                 reflectionFromLeftPaddleProcedure();
 
-                if(ball->Left >= paddleRight->Left)  pointForLeftPlayerProcedure();
+                if(ball->Left >= paddleRight->Left) pointForLeftPlayerProcedure();
                 if(ball->Left < paddleLeft->Left) pointForRightPlayerProcedure();
         }
 }

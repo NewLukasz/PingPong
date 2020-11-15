@@ -27,7 +27,7 @@ int pointRightPlayer=0;
 int pointsLeftPlayer=0;
 AnsiString pointsRightPlayerString, pointsLeftPlayerString;
 
-int randomSignForBallMovement(int direction){
+void randomSignForBallMovement(int direction){
         randomize();
         int randomFactor=random(10);
         if(randomFactor<5) return direction*(-1);
